@@ -1,0 +1,24 @@
+{
+  "name": "kourosh-moradi-portfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio & CV for Kourosh Moradi — Fullstack Web Developer. Bilingual EN/FA, light/dark, built with Vite + Tailwind + three.js + anime.js.",
+  "type": "module",
+  "private": true,
+  "author": "Kourosh Moradi",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "animejs": "^3.2.2",
+    "three": "^0.160.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "vite": "^8.0.16"
+  }
+}

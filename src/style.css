@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', 'Vazirmatn', sans-serif;
+}
+
+[dir='rtl'] body,
+[dir='rtl'] .font-display {
+  font-family: 'Vazirmatn', 'Space Grotesk', sans-serif;
+}
+
+.font-display {
+  font-family: 'Space Grotesk', 'Vazirmatn', sans-serif;
+}
+
+/* Elements revealed on scroll start hidden; JS animates them in. */
+.reveal,
+.r-child {
+  opacity: 0;
+}
+
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.glass {
+  backdrop-filter: blur(12px);
+}
+
+::selection {
+  background: #9050f5;
+  color: #fff;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #7c33e0;
+  border-radius: 8px;
+}
