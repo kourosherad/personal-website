@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vercel/blob": "^2.8.0",
     "animejs": "^3.2.2"
   },
   "devDependencies": {

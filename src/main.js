@@ -5,6 +5,29 @@ import { I18N } from './i18n.js';
 /* ----------------------- i18n ----------------------- */
 let lang = localStorage.getItem('lang') || 'en';
 
+async function loadManagedContent() {
+  try {
+    const response = await fetch('/api/content', { cache: 'no-store' });
+    if (!response.ok) return;
+    const content = await response.json();
+    if (content.translations?.en) Object.assign(I18N.en, content.translations.en);
+    if (content.translations?.fa) Object.assign(I18N.fa, content.translations.fa);
+    document.querySelectorAll('[data-content-link]').forEach((link) => {
+      const href = content.links?.[link.dataset.contentLink];
+      if (href) link.href = href;
+    });
+    const main = document.querySelector('main');
+    content.sections?.forEach(({ id, visible }) => {
+      const section = document.getElementById(id);
+      if (!section || section.parentElement !== main) return;
+      section.hidden = !visible;
+      main.appendChild(section);
+    });
+  } catch (error) {
+    console.warn('Using built-in site content:', error);
+  }
+}
+
 function applyLang(l) {
   lang = l;
   const dict = I18N[l];
@@ -46,6 +69,7 @@ document.getElementById('menu-btn').addEventListener('click', () => mm.classList
 mm.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => mm.classList.add('hidden')));
 
 document.getElementById('year').textContent = new Date().getFullYear();
+await loadManagedContent();
 applyLang(lang);
 
 /* ----------------------- contact form ----------------------- */

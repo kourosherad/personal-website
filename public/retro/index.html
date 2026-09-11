@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Retro — Content Editor</title>
+  <style>
+    :root{color-scheme:dark;font-family:Inter,system-ui,sans-serif;background:#0b0612;color:#f5f1ff}*{box-sizing:border-box}body{margin:0}button,input,textarea{font:inherit}.shell{max-width:1180px;margin:auto;padding:24px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}.brand{font-size:24px;font-weight:800}.brand b{color:#a878ff}.card{background:#140a24;border:1px solid #451a7a;border-radius:18px;padding:20px}.login{max-width:420px;margin:14vh auto}.login input,.field input,.field textarea{width:100%;background:#0b0612;color:#fff;border:1px solid #451a7a;border-radius:10px;padding:11px 12px}.login button,.save{width:100%;margin-top:12px;background:#7c33e0;color:#fff;border:0;border-radius:10px;padding:12px;font-weight:700;cursor:pointer}.toolbar{display:flex;gap:10px;align-items:center}.toolbar button{background:#20102f;color:#dccbff;border:1px solid #451a7a;border-radius:9px;padding:9px 12px;cursor:pointer}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.tabs button{border:1px solid #451a7a;background:#140a24;color:#dccbff;border-radius:999px;padding:8px 14px;cursor:pointer}.tabs button.active{background:#7c33e0;color:white}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{display:grid;gap:6px}.field label{font-size:13px;color:#c3a4ff}.field textarea{min-height:88px;resize:vertical}.wide{grid-column:1/-1}.section-row{display:flex;align-items:center;gap:12px;background:#0b0612;border-radius:10px;padding:12px;margin:8px 0}.section-row button{margin-left:auto;background:#28133c;color:#fff;border:1px solid #451a7a;border-radius:7px;padding:5px 10px}.status{min-height:24px;color:#c3a4ff;margin-top:10px}.hidden{display:none!important}@media(max-width:700px){.grid{grid-template-columns:1fr}.shell{padding:14px}.top{align-items:flex-start}.toolbar{flex-wrap:wrap;justify-content:flex-end}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section id="login" class="card login">
+      <div class="brand"><b>R</b>etro.</div><p>Sign in to edit your portfolio content.</p>
+      <form id="login-form"><input id="password" type="password" autocomplete="current-password" placeholder="Admin password" required /><button>Sign in</button></form>
+      <div id="login-status" class="status"></div>
+    </section>
+    <section id="editor" class="hidden">
+      <header class="top"><div><div class="brand"><b>R</b>etro.</div><small>Portfolio content editor</small></div><div class="toolbar"><a href="/" target="_blank" style="color:#c3a4ff">View site</a><button id="logout">Log out</button></div></header>
+      <div class="tabs" id="tabs"></div><div class="card" id="panel"></div>
+      <button id="save" class="save">Save and publish content</button><div id="status" class="status"></div>
+    </section>
+  </main>
+  <script type="module" src="/retro/retro.js"></script>
+</body>
+</html>
