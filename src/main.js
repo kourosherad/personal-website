@@ -47,20 +47,6 @@ const mm = document.getElementById('mobile-menu');
 document.getElementById('menu-btn').addEventListener('click', () => mm.classList.toggle('hidden'));
 mm.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => mm.classList.add('hidden')));
 
-/* projects tabs */
-document.querySelectorAll('.tab-btn').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const tab = btn.dataset.tab;
-    document.querySelectorAll('.tab-btn').forEach((b) => {
-      const active = b === btn;
-      b.classList.toggle('bg-brand-600', active);
-      b.classList.toggle('text-white', active);
-    });
-    document.getElementById('tab-open').classList.toggle('hidden', tab !== 'open');
-    document.getElementById('tab-client').classList.toggle('hidden', tab !== 'client');
-  });
-});
-
 document.getElementById('year').textContent = new Date().getFullYear();
 applyLang(lang);
 
