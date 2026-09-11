@@ -55,7 +55,7 @@ export default async function handler(req, res) {
         from: `Portfolio <${from}>`,
         to: [to],
         reply_to: email,
-        subject: `New message from ${name} — kouroshmoradi.dev`,
+        subject: `New message from ${name} — kourosherad.vercel.app`,
         html: `
           <h2>New contact form submission</h2>
           <p><strong>Name:</strong> ${escapeHtml(name)}</p>
