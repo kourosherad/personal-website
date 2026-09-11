@@ -25,10 +25,61 @@ body {
   opacity: 0;
 }
 
-#hero-canvas {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
+#hero-media {
+  opacity: var(--hero-opacity, 1);
+  transform: scale(var(--hero-scale, 1));
+  transform-origin: center center;
+  will-change: opacity, transform;
+}
+
+.hero-shade {
+  background:
+    linear-gradient(90deg, rgba(11, 6, 18, 0.9) 0%, rgba(20, 10, 36, 0.55) 34%, rgba(11, 6, 18, 0.08) 62%, rgba(11, 6, 18, 0.25) 100%),
+    linear-gradient(180deg, rgba(11, 6, 18, 0.3) 0%, transparent 45%, rgba(11, 6, 18, 0.5) 100%);
+}
+
+.hero-bottom-fade {
+  background: linear-gradient(to bottom, transparent, #0b0612 96%);
+}
+
+#hero-content {
+  opacity: var(--hero-content-opacity, 1);
+  transform: translateY(var(--hero-content-shift, 0));
+  will-change: opacity, transform;
+}
+
+[dir='rtl'] .hero-layout {
+  justify-content: flex-end;
+}
+
+[dir='rtl'] #hero-cta {
+  justify-content: flex-start;
+}
+
+@media (max-width: 767px) {
+  .hero-shade {
+    background: linear-gradient(180deg, rgba(11, 6, 18, 0.32) 0%, rgba(11, 6, 18, 0.38) 42%, rgba(11, 6, 18, 0.92) 100%);
+  }
+
+  #hero-media img {
+    object-position: 50% center;
+  }
+
+  .hero-layout {
+    transform: translateY(8vh);
+  }
+
+  [dir='rtl'] .hero-layout,
+  [dir='rtl'] #hero-cta {
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #hero-media,
+  #hero-content {
+    transform: none;
+  }
 }
 
 .glass {

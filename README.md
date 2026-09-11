@@ -1,9 +1,9 @@
 # Kourosh Moradi — Portfolio
 
 Personal portfolio & CV for **Kourosh Moradi**, Fullstack Web Developer.
-Bilingual (English / Persian, RTL-aware), light/dark theme, animated three.js hero.
+Bilingual (English / Persian, RTL-aware), light/dark theme, and a responsive photographic hero.
 
-Built with **Vite + Tailwind CSS + anime.js + three.js**. Deploys as a static site with a serverless contact endpoint.
+Built with **Vite + Tailwind CSS + anime.js**. Deploys as a static site with a serverless contact endpoint.
 
 ## Tech stack
 
@@ -11,7 +11,7 @@ Built with **Vite + Tailwind CSS + anime.js + three.js**. Deploys as a static si
 | --------- | ------------------------------------- |
 | Build     | Vite 5                                |
 | Styling   | Tailwind CSS 3 (compiled, PostCSS)    |
-| Animation | anime.js, three.js (hero particles)   |
+| Animation | anime.js                              |
 | Contact   | Serverless function + Resend (email)  |
 | Hosting   | Any static host (Vercel-ready)        |
 
@@ -21,7 +21,7 @@ Built with **Vite + Tailwind CSS + anime.js + three.js**. Deploys as a static si
 .
 ├── index.html            # Markup (no inline scripts/styles)
 ├── src/
-│   ├── main.js           # App logic: i18n, theme, tabs, animations, three.js, contact
+│   ├── main.js           # App logic: i18n, theme, animations, contact
 │   ├── i18n.js           # EN/FA dictionaries
 │   └── style.css         # Tailwind directives + custom CSS
 ├── api/

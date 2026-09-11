@@ -1,5 +1,4 @@
 import './style.css';
-import * as THREE from 'three';
 import anime from 'animejs/lib/anime.es.js';
 import { I18N } from './i18n.js';
 
@@ -28,7 +27,6 @@ function setTheme(dark) {
   document.getElementById('icon-sun').classList.toggle('hidden', !dark);
   document.getElementById('icon-moon').classList.toggle('hidden', dark);
   localStorage.setItem('theme', dark ? 'dark' : 'light');
-  if (window.__updateParticleColor) window.__updateParticleColor(dark);
 }
 
 // Default dark, unless the user previously chose light.
@@ -130,70 +128,16 @@ window.addEventListener('load', () => {
     .add({ targets: '#hero-cta', opacity: [0, 1], translateY: [20, 0], duration: 700 }, '-=450');
 });
 
-/* ----------------------- three.js particle field ----------------------- */
-(function () {
-  const canvas = document.getElementById('hero-canvas');
-  const hero = document.getElementById('hero');
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(70, hero.clientWidth / hero.clientHeight, 1, 1000);
-  camera.position.z = 380;
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(hero.clientWidth, hero.clientHeight);
+/* ----------------------- hero scroll fade ----------------------- */
+const hero = document.getElementById('hero');
 
-  const COUNT = 700;
-  const geo = new THREE.BufferGeometry();
-  const pos = new Float32Array(COUNT * 3);
-  for (let i = 0; i < COUNT * 3; i++) {
-    pos[i] = (Math.random() - 0.5) * 900;
-  }
-  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-  const mat = new THREE.PointsMaterial({ size: 2.4, color: 0xa878ff, transparent: true, opacity: 0.85, depthWrite: false });
-  const points = new THREE.Points(geo, mat);
-  scene.add(points);
+function updateHeroFade() {
+  const progress = Math.min(window.scrollY / Math.max(hero.offsetHeight * 0.72, 1), 1);
+  hero.style.setProperty('--hero-opacity', String(1 - progress * 0.72));
+  hero.style.setProperty('--hero-scale', String(1 + progress * 0.035));
+  hero.style.setProperty('--hero-content-opacity', String(1 - progress));
+  hero.style.setProperty('--hero-content-shift', `${progress * 28}px`);
+}
 
-  // connecting lines for a subtle network look
-  const lineMat = new THREE.LineBasicMaterial({ color: 0x7c33e0, transparent: true, opacity: 0.12 });
-  const linePos = [];
-  for (let i = 0; i < 90; i++) {
-    const a = Math.floor(Math.random() * COUNT) * 3,
-      b = Math.floor(Math.random() * COUNT) * 3;
-    linePos.push(pos[a], pos[a + 1], pos[a + 2], pos[b], pos[b + 1], pos[b + 2]);
-  }
-  const lineGeo = new THREE.BufferGeometry();
-  lineGeo.setAttribute('position', new THREE.Float32BufferAttribute(linePos, 3));
-  const lines = new THREE.LineSegments(lineGeo, lineMat);
-  scene.add(lines);
-
-  window.__updateParticleColor = (dark) => {
-    mat.color.set(dark ? 0xa878ff : 0x7c33e0);
-    mat.opacity = dark ? 0.85 : 0.6;
-    lineMat.opacity = dark ? 0.12 : 0.08;
-  };
-  window.__updateParticleColor(root.classList.contains('dark'));
-
-  let mx = 0,
-    my = 0;
-  document.addEventListener('mousemove', (e) => {
-    mx = e.clientX / window.innerWidth - 0.5;
-    my = e.clientY / window.innerHeight - 0.5;
-  });
-
-  function animate() {
-    requestAnimationFrame(animate);
-    points.rotation.y += 0.0009;
-    points.rotation.x += 0.0004;
-    lines.rotation.copy(points.rotation);
-    camera.position.x += (mx * 60 - camera.position.x) * 0.04;
-    camera.position.y += (-my * 60 - camera.position.y) * 0.04;
-    camera.lookAt(scene.position);
-    renderer.render(scene, camera);
-  }
-  animate();
-
-  window.addEventListener('resize', () => {
-    camera.aspect = hero.clientWidth / hero.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(hero.clientWidth, hero.clientHeight);
-  });
-})();
+updateHeroFade();
+window.addEventListener('scroll', updateHeroFade, { passive: true });
