@@ -3,6 +3,8 @@ import anime from 'animejs/lib/anime.es.js';
 import { I18N } from './i18n.js';
 import { STUDIO } from './studio-content.js';
 import './studio.css';
+import { setupMatrixBackground } from './matrix-background.js';
+setupMatrixBackground();
 import { setupScrollMotion } from './scroll-motion.js';
 Object.assign(I18N.en, STUDIO.en);
 Object.assign(I18N.fa, STUDIO.fa);
