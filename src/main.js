@@ -3,6 +3,7 @@ import anime from 'animejs/lib/anime.es.js';
 import { I18N } from './i18n.js';
 import { STUDIO } from './studio-content.js';
 import './studio.css';
+import { setupScrollMotion } from './scroll-motion.js';
 Object.assign(I18N.en, STUDIO.en);
 Object.assign(I18N.fa, STUDIO.fa);
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -125,30 +126,7 @@ document.getElementById('c-send').addEventListener('click', async () => {
 });
 
 /* ----------------------- anime.js reveals ----------------------- */
-const io = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      const el = e.target;
-      if (reducedMotion) { io.unobserve(el); return; }
-      if (el.classList.contains('reveal-group')) {
-        anime({
-          targets: el.querySelectorAll('.r-child'),
-          opacity: [0, 1],
-          translateY: [28, 0],
-          delay: anime.stagger(90),
-          duration: 700,
-          easing: 'easeOutCubic',
-        });
-      } else {
-        anime({ targets: el, opacity: [0, 1], translateY: [28, 0], duration: 700, easing: 'easeOutCubic' });
-      }
-      io.unobserve(el);
-    });
-  },
-  { threshold: 0.12 }
-);
-document.querySelectorAll('.reveal, .reveal-group').forEach((el) => io.observe(el));
+setupScrollMotion();
 
 /* hero entrance */
 if (!reducedMotion) {
