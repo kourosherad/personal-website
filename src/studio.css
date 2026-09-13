@@ -1,0 +1,53 @@
+body { background:#f4f1f8; }
+.dark body { background:#09090f; }
+header nav { max-width:1320px!important; }
+header .glass { border-radius:8px; box-shadow:none; }
+.dark header .glass { background:rgba(9,9,15,.86);border-color:#ffffff15; }
+body > .pointer-events-none { display:none; }
+#hero { min-height:850px;min-height:100svh;padding:130px 32px 70px; }
+.studio-grid { background:radial-gradient(ellipse at 70% 40%,#7c33e015,transparent 55%),linear-gradient(#8176a509 1px,transparent 1px),linear-gradient(90deg,#8176a509 1px,transparent 1px);background-size:auto,72px 72px,72px 72px; }
+.hero-layout { display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;max-width:1256px;padding-top:0; }
+#hero-content { max-width:640px;text-align:start;color:#171324; }
+.dark #hero-content { color:#f4f1ff; }
+#hero-role { letter-spacing:.06em;color:#9163d4;font-size:11px; }
+#hero-name { font-size:clamp(52px,6.2vw,94px);line-height:1.12;letter-spacing:-.065em;white-space:pre-line;font-weight:500; }
+[dir=rtl] #hero-name { letter-spacing:-.045em;line-height:1.4;font-size:clamp(48px,5.8vw,82px); }
+#hero-tagline { max-width:460px;line-height:1.9;color:#71697f;font-size:15px; }
+.dark #hero-tagline { color:#a7a2b4; }
+#hero-cta { justify-content:flex-start; }
+#hero-cta a { border-radius:5px;padding:15px 23px; }
+#hero-cta a + a { border-color:#85759750; }
+.scene-panel { position:relative;min-width:0;direction:ltr; }
+.scene-caption { display:flex;justify-content:space-between;font:10px monospace;letter-spacing:.14em;color:#8a829e;padding:0 24px; }
+#studio-scene { height:490px;position:relative;cursor:crosshair; }
+#studio-scene canvas { display:block;max-width:100%; }
+.scene-controls { display:flex;justify-content:center;gap:6px; }
+.scene-controls button { padding:8px 24px;font-size:12px;color:#92889f;border:1px solid #81768e35;border-radius:4px;transition:background .2s; }
+.scene-controls button[aria-pressed=true] { color:#cdaaff;background:#8651db22;border-color:#ae77ff88; }
+.scene-hint { margin-top:14px;text-align:center;font-size:10px;color:#80768c; }
+.scene-fallback::before { content:'◇';font-size:280px;color:#9b64dc;position:absolute;inset:0;display:grid;place-items:center; }
+main { max-width:1256px!important;padding-inline:32px!important; }
+main > section { border-top:1px solid #94829d25;padding-block:90px!important; }
+main h2 { font-size:13px!important;font-weight:500!important;letter-spacing:.05em;color:#9c77d7; }
+main h2 > span:first-child { display:none; }
+.studio-section-intro,.studio-about-title { font-family:'Space Grotesk','Vazirmatn',sans-serif;font-size:clamp(28px,3.4vw,46px);line-height:1.45;max-width:720px;letter-spacing:-.04em;margin-bottom:22px; }
+.studio-signature { font-size:12px;color:#a484ce;margin-top:26px; }
+#about { position:relative;display:grid;grid-template-columns:1fr 290px;gap:70px;align-items:center; }
+#about::after { content:'';height:340px;background:linear-gradient(0deg,#09090f66,transparent),url('/hero-landscape.png') center/cover;border-radius:4px; }
+.dark main .glass { background:#101016;border-color:#ffffff12;backdrop-filter:none; }
+main .glass { border-radius:6px;box-shadow:none; }
+#services .grid { gap:0;counter-reset:services; }
+#services .r-child { background:transparent!important;border:0;border-top:1px solid #8f809b30;border-radius:0;padding:32px;counter-increment:services; }
+#services .r-child::before { content:'0' counter(services);font:11px monospace;color:#8c7e9d;float:inline-end; }
+#projects article { padding:0 0 26px;overflow:hidden; }
+#projects article > * { margin-inline:24px; }
+#projects article > div:first-child { height:190px;margin:0 0 25px;padding:26px;align-items:flex-end;background:radial-gradient(ellipse at 50% 120%,#945cda60,transparent 70%),repeating-linear-gradient(45deg,transparent,transparent 19px,#b989eb12 20px); }
+#projects article:nth-child(2) > div:first-child { background:radial-gradient(ellipse at 50% 120%,#54c9b455,transparent 70%),repeating-linear-gradient(-45deg,transparent,transparent 19px,#78cbbb12 20px); }
+#projects article:nth-child(3) > div:first-child { background:radial-gradient(ellipse at 50% 120%,#cf935855,transparent 70%),repeating-linear-gradient(90deg,transparent,transparent 19px,#cfaa7712 20px); }
+#projects article > div:first-child svg { width:62px;height:62px;stroke-width:1; }
+.resume-button { float:inline-end;font-size:12px;border:1px solid #a886cf55;padding:10px 15px;border-radius:4px; }
+:focus-visible { outline:2px solid #b99ae4;outline-offset:5px; }
+@media(max-width:900px) { #hero { padding:120px 24px 65px; }.hero-layout { gap:12px; }#studio-scene { height:380px; }#hero-name { font-size:60px; }#about { grid-template-columns:1fr 220px;gap:30px; } }
+@media(max-width:640px) { #hero { padding:110px 20px 65px; }.hero-layout { grid-template-columns:1fr;transform:none!important; }#hero-content { max-width:none; }#hero-name,[dir=rtl] #hero-name { font-size:54px; }#hero-tagline { margin-bottom:22px; }#hero-role { font-size:10px; }#hero-cta { justify-content:flex-start!important; }#hero-cta a { padding:12px 15px; }#studio-scene { height:330px; }.scene-panel { margin-top:32px; }.scene-caption { padding:0; }main { padding-inline:20px!important; }main > section { padding-block:58px!important; }#about { grid-template-columns:1fr; }#about::after { height:240px; }.resume-button { float:none;margin-bottom:25px; } }
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; }.reveal,.r-child { opacity:1!important;transform:none!important; }#hero-content { opacity:1!important;transform:none!important; }.animate-bounce { animation:none; } }
+@media print { header,#hero,#services,#projects,#contact,footer,.resume-button { display:none!important; }body,html.dark body { background:white!important;color:black!important; }main { max-width:none!important; }main > section { padding:20px 0!important;break-inside:avoid; }.reveal,.r-child { opacity:1!important;transform:none!important; }#about { display:block; }#about::after { display:none; }.dark main * { color:#222!important;box-shadow:none!important; }.glass { background:white!important; } }

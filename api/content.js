@@ -1,10 +1,11 @@
 import { head, put } from '@vercel/blob';
 import { I18N } from '../src/i18n.js';
+import { STUDIO } from '../src/studio-content.js';
 import { isAuthenticated } from './_admin-auth.js';
 
 const PATH = 'portfolio/site-content.json';
 const defaults = {
-  translations: I18N,
+  translations: { en: { ...I18N.en, ...STUDIO.en }, fa: { ...I18N.fa, ...STUDIO.fa } },
   links: {
     sepehr: 'https://temporary-brisk-emerald-kgw3h90.vercel.app/',
     autora: 'https://autora-red.vercel.app/',
@@ -46,7 +47,10 @@ export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   if (req.method === 'GET') {
     const stored = await readStored();
-    return res.status(200).json(stored || defaults);
+    return res.status(200).json(stored ? { ...defaults, ...stored, translations: {
+      en: { ...defaults.translations.en, ...stored.translations?.en },
+      fa: { ...defaults.translations.fa, ...stored.translations?.fa },
+    } } : defaults);
   }
   if (req.method !== 'PUT') return res.status(405).json({ error: 'Method not allowed' });
   if (!isAuthenticated(req)) return res.status(401).json({ error: 'Unauthorized' });

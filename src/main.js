@@ -1,13 +1,18 @@
 import './style.css';
 import anime from 'animejs/lib/anime.es.js';
 import { I18N } from './i18n.js';
+import { STUDIO } from './studio-content.js';
+import './studio.css';
+Object.assign(I18N.en, STUDIO.en);
+Object.assign(I18N.fa, STUDIO.fa);
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ----------------------- i18n ----------------------- */
-let lang = localStorage.getItem('lang') || 'en';
+let lang = localStorage.getItem('lang') === 'en' ? 'en' : 'fa';
 
 async function loadManagedContent() {
   try {
-    const response = await fetch('/api/content', { cache: 'no-store' });
+    const response = await fetch('/api/content', { cache: 'no-store', signal: AbortSignal.timeout(4000) });
     if (!response.ok) return;
     const content = await response.json();
     if (content.translations?.en) Object.assign(I18N.en, content.translations.en);
@@ -69,8 +74,10 @@ document.getElementById('menu-btn').addEventListener('click', () => mm.classList
 mm.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => mm.classList.add('hidden')));
 
 document.getElementById('year').textContent = new Date().getFullYear();
-await loadManagedContent();
 applyLang(lang);
+loadManagedContent().then(() => applyLang(lang));
+import('./scene.js').then(({ mountScene }) => mountScene(document.getElementById('studio-scene'))).catch(() => document.getElementById('studio-scene').classList.add('scene-fallback'));
+document.getElementById('print-resume').addEventListener('click', () => window.print());
 
 /* ----------------------- contact form ----------------------- */
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -123,6 +130,7 @@ const io = new IntersectionObserver(
     entries.forEach((e) => {
       if (!e.isIntersecting) return;
       const el = e.target;
+      if (reducedMotion) { io.unobserve(el); return; }
       if (el.classList.contains('reveal-group')) {
         anime({
           targets: el.querySelectorAll('.r-child'),
@@ -143,14 +151,14 @@ const io = new IntersectionObserver(
 document.querySelectorAll('.reveal, .reveal-group').forEach((el) => io.observe(el));
 
 /* hero entrance */
-window.addEventListener('load', () => {
+if (!reducedMotion) {
   anime
     .timeline({ easing: 'easeOutExpo' })
     .add({ targets: '#hero-role', opacity: [0, 1], translateY: [20, 0], duration: 700 })
     .add({ targets: '#hero-name', opacity: [0, 1], translateY: [30, 0], duration: 800 }, '-=450')
     .add({ targets: '#hero-tagline', opacity: [0, 1], translateY: [20, 0], duration: 700 }, '-=500')
     .add({ targets: '#hero-cta', opacity: [0, 1], translateY: [20, 0], duration: 700 }, '-=450');
-});
+}
 
 /* ----------------------- hero scroll fade ----------------------- */
 const hero = document.getElementById('hero');

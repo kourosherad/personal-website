@@ -7,7 +7,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kourosh Moradi — Fullstack Web Developer</title>
+    <title>Kourosh Moradi — Developer & Creative Technologist</title>
 
     <meta name="description" content="Kourosh Moradi — Fullstack Web Developer building practical, reliable web applications with JavaScript, Node.js, Express and SQL." />
     <meta name="author" content="Kourosh Moradi" />
@@ -79,20 +79,22 @@
 
     <!-- HERO -->
     <section id="hero" class="relative min-h-screen flex items-center px-4 overflow-hidden">
-      <div id="hero-media" class="absolute inset-0" aria-hidden="true">
-        <img src="/hero-landscape.png" alt="" class="h-full w-full object-cover object-center" fetchpriority="high" />
-        <div class="hero-shade absolute inset-0"></div>
-        <div class="hero-bottom-fade absolute inset-x-0 bottom-0 h-2/5"></div>
-      </div>
+      <div id="hero-media" class="absolute inset-0 studio-grid" aria-hidden="true"></div>
       <div class="hero-layout relative z-10 w-full max-w-6xl mx-auto pt-20 flex justify-center md:justify-start">
         <div id="hero-content" class="text-center md:text-start max-w-xl text-white">
-        <p id="hero-role" class="font-display text-brand-300 tracking-[0.3em] uppercase text-xs sm:text-sm mb-4" data-i18n="hero.role"></p>
-        <h1 id="hero-name" class="font-display font-bold text-5xl sm:text-7xl mb-5 leading-tight drop-shadow-2xl" data-i18n="hero.name"></h1>
-        <p id="hero-tagline" class="text-base sm:text-lg text-slate-200 max-w-xl mb-9 drop-shadow-lg" data-i18n="hero.tagline"></p>
+        <p id="hero-role" class="font-display text-brand-300 uppercase text-xs sm:text-sm mb-4" data-i18n="hero.studioRole"></p>
+        <h1 id="hero-name" class="font-display font-bold mb-5" data-i18n="hero.headline"></h1>
+        <p id="hero-tagline" class="text-base sm:text-lg text-slate-200 max-w-xl mb-9" data-i18n="hero.intro"></p>
         <div id="hero-cta" class="flex flex-wrap items-center justify-center md:justify-start gap-3">
-          <a href="#projects" class="rounded-xl bg-brand-600 hover:bg-brand-500 text-white px-6 py-3 text-sm font-semibold shadow-lg shadow-brand-700/30 transition" data-i18n="hero.cta1"></a>
-          <a href="#contact" class="rounded-xl border border-white/30 bg-black/10 hover:bg-brand-500/20 px-6 py-3 text-sm font-semibold backdrop-blur-sm transition" data-i18n="hero.cta2"></a>
+          <a href="#projects" class="rounded-xl bg-brand-600 hover:bg-brand-500 text-white px-6 py-3 text-sm font-semibold transition" data-i18n="hero.work"></a>
+          <a href="#experience" class="rounded-xl border border-white/30 px-6 py-3 text-sm font-semibold transition" data-i18n="hero.resume"></a>
         </div>
+        </div>
+        <div class="scene-panel">
+          <div class="scene-caption" dir="ltr"><span>EXPERIMENT 001</span><span>FORM × FUNCTION</span></div>
+          <div id="studio-scene" role="img" aria-label="Interactive three-dimensional technology sculpture"></div>
+          <div class="scene-controls"><button data-scene-mode="code" aria-pressed="false" data-i18n="hero.code"></button><button data-scene-mode="model" aria-pressed="true" data-i18n="hero.model"></button><button data-scene-mode="system" aria-pressed="false" data-i18n="hero.system"></button></div>
+          <p class="scene-hint" data-i18n="hero.interact"></p>
         </div>
       </div>
       <a href="#about" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-brand-300 animate-bounce" aria-label="Scroll to about">
@@ -105,7 +107,9 @@
       <section id="about" class="py-24 scroll-mt-24">
         <div class="reveal max-w-3xl">
           <h2 class="font-display font-bold text-3xl sm:text-4xl mb-6"><span class="text-brand-600 dark:text-brand-400">#</span> <span data-i18n="about.title"></span></h2>
-          <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-300" data-i18n="about.body"></p>
+          <p class="studio-about-title" data-i18n="about.studioTitle"></p>
+          <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-300" data-i18n="about.studioBody"></p>
+          <p class="studio-signature" data-i18n="about.signature"></p>
           <div class="mt-6 flex flex-wrap gap-3 text-sm">
             <span class="rounded-full border border-brand-500/30 bg-brand-500/5 px-4 py-1.5" data-i18n="about.tag1"></span>
             <span class="rounded-full border border-brand-500/30 bg-brand-500/5 px-4 py-1.5" data-i18n="about.tag2"></span>
@@ -150,6 +154,7 @@
 
       <!-- EXPERIENCE -->
       <section id="experience" class="py-24 scroll-mt-24">
+        <button id="print-resume" class="resume-button" data-i18n="exp.print"></button>
         <h2 class="reveal font-display font-bold text-3xl sm:text-4xl mb-12"><span class="text-brand-600 dark:text-brand-400">#</span> <span data-i18n="exp.title"></span></h2>
         <div class="reveal-group relative ps-6 border-s-2 border-brand-500/30 space-y-10">
           <div class="r-child relative">
@@ -172,7 +177,8 @@
       <!-- PROJECTS -->
       <section id="projects" class="py-24 scroll-mt-24">
         <h2 class="reveal font-display font-bold text-3xl sm:text-4xl mb-3"><span class="text-brand-600 dark:text-brand-400">#</span> <span data-i18n="projects.title"></span></h2>
-        <p class="reveal text-slate-600 dark:text-slate-300 mb-8" data-i18n="projects.subtitle"></p>
+        <p class="studio-section-intro" data-i18n="projects.studioTitle"></p>
+        <p class="reveal text-slate-600 dark:text-slate-300 mb-8" data-i18n="projects.studioIntro"></p>
 
         <div class="reveal-group grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           <article class="r-child group glass rounded-2xl border border-brand-500/20 bg-white/60 dark:bg-white/5 p-6 hover:border-brand-500/50 hover:-translate-y-1 transition">
@@ -214,7 +220,8 @@
       <!-- SERVICES -->
       <section id="services" class="py-24 scroll-mt-24">
         <h2 class="reveal font-display font-bold text-3xl sm:text-4xl mb-3"><span class="text-brand-600 dark:text-brand-400">#</span> <span data-i18n="services.title"></span></h2>
-        <p class="reveal text-slate-600 dark:text-slate-300 mb-10" data-i18n="services.subtitle"></p>
+        <p class="studio-section-intro" data-i18n="services.studioTitle"></p>
+        <p class="reveal text-slate-600 dark:text-slate-300 mb-10" data-i18n="services.studioIntro"></p>
         <div class="reveal-group grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           <div class="r-child glass rounded-2xl border border-brand-500/20 bg-white/60 dark:bg-white/5 p-6 hover:-translate-y-1 transition">
             <div class="text-brand-600 dark:text-brand-400 mb-4"><svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M2 9h20" /></svg></div>
@@ -254,7 +261,8 @@
         <div class="reveal grid lg:grid-cols-2 gap-10 items-start">
           <div>
             <h2 class="font-display font-bold text-3xl sm:text-4xl mb-4"><span class="text-brand-600 dark:text-brand-400">#</span> <span data-i18n="contact.title"></span></h2>
-            <p class="text-slate-600 dark:text-slate-300 mb-8" data-i18n="contact.subtitle"></p>
+            <p class="studio-section-intro" data-i18n="contact.studioTitle"></p>
+            <p class="text-slate-600 dark:text-slate-300 mb-8" data-i18n="contact.studioIntro"></p>
             <div class="flex flex-wrap gap-3">
               <a href="https://github.com/kourosherad" data-content-link="github" target="_blank" rel="noopener" class="social-link glass flex items-center gap-2 rounded-xl border border-brand-500/20 bg-white/60 dark:bg-white/5 px-4 py-2.5 text-sm hover:border-brand-500/50 transition">
                 <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.22-3.37-1.22-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.85.09-.66.35-1.12.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05a9.4 9.4 0 015 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.02 10.02 0 0022 12.25C22 6.58 17.52 2 12 2z" /></svg>GitHub</a>
