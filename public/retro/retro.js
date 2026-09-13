@@ -3,7 +3,17 @@ const groups = ['hero','about','skills','exp','projects','services','contact','f
 const labels = {hero:'Hero',about:'About',skills:'Skills',exp:'Experience',projects:'Projects',services:'Services',contact:'Contact',footer:'Footer',links:'Links',sections:'Sections'};
 const $ = (id) => document.getElementById(id);
 
+function showLogin(message = '') {
+  $('editor').classList.add('hidden');
+  $('login').classList.remove('hidden');
+  $('login-status').textContent = message;
+}
+
 async function loadEditor() {
+  if (content) {
+    $('login').classList.add('hidden'); $('editor').classList.remove('hidden');
+    return;
+  }
   const response = await fetch('/api/content', { cache: 'no-store' });
   if (!response.ok) throw new Error('Could not load content');
   content = await response.json();
@@ -12,9 +22,11 @@ async function loadEditor() {
 
 $('login-form').addEventListener('submit', async (event) => {
   event.preventDefault(); $('login-status').textContent = 'Signing in…';
+  try {
   const response = await fetch('/api/admin/login', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({password:$('password').value}) });
   if (!response.ok) { $('login-status').textContent = 'Incorrect password or server not configured.'; return; }
   $('password').value=''; await loadEditor();
+  } catch { $('login-status').textContent = 'Could not connect. Please try again.'; }
 });
 
 function renderTabs() {
@@ -33,6 +45,42 @@ function renderGroup(group) {
 function renderLinks(){const panel=$('panel');panel.innerHTML='<div class="grid"></div>';Object.entries(content.links).forEach(([key,value])=>{const wrap=document.createElement('div');wrap.className='field';wrap.innerHTML=`<label>${key}</label>`;const input=document.createElement('input');input.value=value;input.oninput=()=>content.links[key]=input.value;wrap.appendChild(input);panel.firstChild.appendChild(wrap)});}
 function renderSections(){const panel=$('panel');panel.innerHTML='<p>Choose which sections are visible and arrange their order.</p>';content.sections.forEach((section,index)=>{const row=document.createElement('div');row.className='section-row';const check=document.createElement('input');check.type='checkbox';check.checked=section.visible;check.onchange=()=>section.visible=check.checked;const name=document.createElement('span');name.textContent=labels[section.id]||section.id;const up=document.createElement('button');up.textContent='↑';up.disabled=index===0;up.onclick=()=>{[content.sections[index-1],content.sections[index]]=[content.sections[index],content.sections[index-1]];renderSections()};const down=document.createElement('button');down.textContent='↓';down.disabled=index===content.sections.length-1;down.onclick=()=>{[content.sections[index+1],content.sections[index]]=[content.sections[index],content.sections[index+1]];renderSections()};row.append(check,name,up,down);panel.appendChild(row)});}
 
-$('save').onclick=async()=>{$('status').textContent='Saving…';const response=await fetch('/api/content',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(content)});$('status').textContent=response.ok?'Saved. Your website now uses the new content.':'Save failed. Please sign in again or check storage setup.';};
-$('logout').onclick=async()=>{await fetch('/api/admin/logout',{method:'POST'});location.reload();};
-loadEditor().catch(()=>{});
+$('save').onclick = async () => {
+  $('save').disabled = true;
+  $('status').textContent = 'Saving…';
+  try {
+    const response = await fetch('/api/content', { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(content) });
+    if (response.status === 401) {
+      $('status').textContent = 'Your edits are preserved. Click Save after signing in.';
+      showLogin('Your session expired. Sign in again; your unsaved edits are preserved in this tab.');
+      return;
+    }
+    if (!response.ok) {
+      const result = await response.json().catch(() => ({}));
+      throw new Error(result.error || 'Storage is unavailable. Please retry.');
+    }
+    $('status').textContent = 'Saved. Your website now uses the new content.';
+  } catch (error) { $('status').textContent = `Not saved: ${error.message} Your edits are still here.`; }
+  finally { $('save').disabled = false; }
+};
+$('logout').onclick = async () => {
+  $('logout').disabled = true;
+  try {
+    const response = await fetch('/api/admin/logout', {method:'POST'});
+    if (!response.ok) throw new Error();
+    content = undefined;
+    $('panel').replaceChildren();
+    $('password').value = '';
+    showLogin('You have signed out.');
+  } catch { $('status').textContent = 'Could not sign out. Check your connection and retry.'; }
+  finally { $('logout').disabled = false; }
+};
+async function restoreSession() {
+  try {
+    const response = await fetch('/api/admin/session', {cache:'no-store'});
+    if (response.status === 401) return showLogin();
+    if (!response.ok) throw new Error();
+    await loadEditor();
+  } catch { showLogin('Could not restore your session. Please sign in.'); }
+}
+restoreSession();
